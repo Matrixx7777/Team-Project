@@ -1,4 +1,3 @@
-
 package com.kodilla.ecommercee.domain;
 
 import javax.persistence.*;
@@ -9,11 +8,11 @@ import java.util.List;
 @Entity
 @Table(name="CARTS")
 public class Cart {
+
     private Long id;
     private User user;
     private Order order;
     private List<Product> products = new ArrayList<>();
-
 
     public Cart(User user, Order order) {
         this.user = user;
@@ -32,12 +31,13 @@ public class Cart {
     }
 
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER) //doprecyzowac
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "ORDER_ID")
     public Order getOrder() {
         return order;
