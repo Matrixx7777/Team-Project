@@ -27,8 +27,8 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")
-    public GroupDto updateGroup(@RequestParam int groupId) {
-        return new GroupDto(1L, "Fruit");
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
+        return groupDto;
     }
 
     @RequestMapping( method = RequestMethod.DELETE, value = "deleteGroup")
