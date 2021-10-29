@@ -27,8 +27,8 @@ public class ProductController {
     }
 
     @PutMapping(value = "updateProduct")
-    public ProductDto updateProduct(@RequestParam int productId) {
-        return new ProductDto(1L,"Edited product","Edited product description",9.99,1);
+    public ProductDto updateProduct(@RequestBody ProductDto productDto) {
+        return productDto;
     }
 
     @DeleteMapping(value = "deleteProduct")
