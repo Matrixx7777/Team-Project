@@ -12,36 +12,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/carts")
+@RequestMapping("/v1/cart")
 public class CartController {
 
-    @PostMapping
-    public CartDto createCart(@RequestParam long userId) {
-        return new CartDto(1L, new UserDto(userId,"John","Smith"), new ArrayList<>());
+    @PostMapping("createCart")
+    public CartDto createCart(@RequestBody CartDto cartDto) {
+        return cartDto;
     }
 
-    @GetMapping
+    @GetMapping("getCarts")
     public List<ProductDto> getCartProducts(@RequestParam long cartId) {
         CartDto cartDto = new CartDto(1L, new UserDto(1L,"John","Smith"), new ArrayList<>());
         return cartDto.getProducts();
     }
 
-    @PostMapping("/add")
-    public CartDto addProductToCart(@RequestParam long cartId, @RequestParam List<Long> productsId) {
-        CartDto cartDto = new CartDto(1L, new UserDto(1L,"John","Smith"), new ArrayList<>());
-        for (Long id : productsId) {
-            cartDto.addProduct(new ProductDto(id,"Name" + id,"Desc" + id,9.99,1));
-        }
-        return cartDto;
+    @PostMapping("addProductToCart")
+    public void addProductToCart(@RequestParam long cartId, @RequestBody ProductDto productDto) { //tu poprawiłem
+
+        //obiekt Cart ma listę i do niego dodamy po prostu produkt z argumentu
     }
 
-    @DeleteMapping
-    public void deleteProduct(@RequestParam long cartId, @RequestParam long productId) {
-        CartDto cartDto = new CartDto(1L, new UserDto(1L,"John","Smith"), new ArrayList<>());
-        cartDto.getProducts().removeIf(product -> product.getId().equals(BigInteger.valueOf(productId)));
+    @DeleteMapping("deleteCart")
+    public void deleteProduct(@RequestParam long cartId, @RequestParam String productName, @RequestParam int quantity) {
+        //pętlą
+        //sprawdź ile jest produktów. jeśli wiecej niż quantity zwróc error, że
+        //wyszukaj koszyk
+        //wyszukaj w koszyku produkt po nazwie
+        //usun pierwszy napotkany produkt
+
     }
 
-    @PostMapping("/makeOrder")
+    @PostMapping("makeOrder")
     public OrderDto makeOrder(@RequestParam long cartId) {
         CartDto cartDto = new CartDto(1L, new UserDto(1L,"John","Smith"), new ArrayList<>());
         return new OrderDto(1L,1, OrderStatus.CREATED.name());
