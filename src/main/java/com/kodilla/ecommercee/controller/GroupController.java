@@ -31,8 +31,8 @@ public class GroupController {
         return new GroupDto(new BigInteger(String.valueOf(1)), "Fruit");
     }
 
-    @RequestMapping( method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProduct(@RequestParam int productId) {
+    @RequestMapping( method = RequestMethod.DELETE, value = "deleteGroup")
+    public void deleteGroup(@RequestParam int groupId) {
     }
 
 }
