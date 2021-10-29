@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping(value = "getProduct")
     public ProductDto getProduct (@RequestParam int productId) {
-        return new ProductDto(new BigInteger("1"),"Test product","Test product description",9.99,1);
+        return new ProductDto(1L,"Test product","Test product description",9.99,1);
     }
 
     @PostMapping(value = "createProduct")
@@ -28,7 +28,7 @@ public class ProductController {
 
     @PutMapping(value = "updateProduct")
     public ProductDto updateProduct(@RequestParam int productId) {
-        return new ProductDto(new BigInteger("1"),"Edited product","Edited product description",9.99,1);
+        return new ProductDto(1L,"Edited product","Edited product description",9.99,1);
     }
 
     @DeleteMapping(value = "deleteProduct")
