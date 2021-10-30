@@ -1,10 +1,14 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.UserDto;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 @RestController
@@ -12,32 +16,48 @@ import java.util.List;
 @CrossOrigin(origins = "*")
 public class UserController {
 
+    private final UserService service;
+    private final UserMapper userMapper;
 
+    @Autowired
+    public UserController(UserService service, UserMapper userMapper) {
+        this.service = service;
+        this.userMapper = userMapper;
+    }
 
     @RequestMapping(method = RequestMethod.GET, value = "getUsers")
     public List<UserDto> getUser() {
-
-        return new ArrayList<>();
+        List<User> users = service.getAllUsers();
+        return userMapper.mapToUserDtoList(users);
     }
 
     @GetMapping(value = "getUser")
-    public UserDto getUser(@RequestParam Long userId)  {
-        return new UserDto(1L, "Test", "test");
-
+    public UserDto getUser(@RequestParam Long userId) {
+        return userMapper.mapToUserDto(
+                service.getUser(userId).orElseThrow(NullPointerException::new)
+        );
     }
 
     @DeleteMapping(value = "deleteUser")
     public void deleteUser(@RequestParam Long userId) {
+        try {
+            service.deleteById(userId);
+        } catch(NullPointerException e){
+            System.out.println("Problem with delete user");
+        }
 
     }
 
     @PutMapping(value = "updateUser")
     public UserDto updateUser(@RequestBody UserDto userDto) {
-        return new UserDto(1L, "Test", "test");
+        User user = userMapper.mapToUser(userDto);
+        User savedUser = service.saveUser(user);
+        return userMapper.mapToUserDto(savedUser);
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDto createUser(@RequestBody UserDto userDto) {
-        return new UserDto(1L, "Test", "test");
+    public void createUser(@RequestBody UserDto userDto) {
+        User user = userMapper.mapToUser(userDto);
+        service.saveUser(user);
     }
 }
