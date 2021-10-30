@@ -1,5 +1,6 @@
 package com.kodilla.ecommercee.domain;
 
+
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,27 +11,29 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-@Entity(name = "user")
+@Entity
+@Table(name = "USER")
 public class User {
+
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="ID", unique=true)
+    @Column(name = "ID", unique = true)
     private Long id;
 
     @Column(name = "name")
-    private  String firstName;
+    private String firstName;
 
     @Column(name = "surname")
-    private  String lastName;
+    private String lastName;
 
-//    @OneToMany(
-//            targetEntity = Cart.class,
-//            mappedBy = "user",
-//            cascade = CascadeType.ALL,
-//            fetch = FetchType.LAZY
-//    )
-    public Long getId(){
+        @OneToMany(
+            targetEntity = Cart.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    public Long getId() {
         return id;
     }
 

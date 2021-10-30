@@ -30,7 +30,7 @@ public class CartController {
     public CartDto addProductToCart(@RequestParam long cartId, @RequestParam List<Long> productsId) {
         CartDto cartDto = new CartDto(1L, new UserDto(1L,"John","Smith"), new ArrayList<>());
         for (Long id : productsId) {
-            cartDto.addProduct(new ProductDto(BigInteger.valueOf(id),"Name" + id,"Desc" + id,9.99,1));
+            cartDto.addProduct(new ProductDto(id,"Name" + id,"Desc" + id,9.99,1));
         }
         return cartDto;
     }

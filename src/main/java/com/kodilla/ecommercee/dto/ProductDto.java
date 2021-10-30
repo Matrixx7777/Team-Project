@@ -1,15 +1,13 @@
 package com.kodilla.ecommercee.dto;
 
-import java.math.BigInteger;
-
 public class ProductDto {
-    private BigInteger id;
+    private Long id;
     private String name;
     private String description;
     private double price;
     private int groupId;
 
-    public ProductDto(BigInteger id, String name, String description, double price, int groupId) {
+    public ProductDto(Long id, String name, String description, double price, int groupId) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -17,11 +15,11 @@ public class ProductDto {
         this.groupId = groupId;
     }
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

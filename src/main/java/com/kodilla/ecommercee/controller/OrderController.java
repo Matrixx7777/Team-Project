@@ -26,8 +26,8 @@ public class OrderController {
     }
 
     @PutMapping(value = "updateOrder")
-    public OrderDto updateOrder(@RequestParam int orderId) {
-        return new OrderDto(1L, 1,"changed status");
+    public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
+        return orderDto;
     }
 
     @DeleteMapping(value = "deleteOrder")

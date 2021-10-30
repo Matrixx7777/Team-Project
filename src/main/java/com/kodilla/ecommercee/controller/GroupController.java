@@ -18,7 +18,7 @@ public class GroupController {
 
     @RequestMapping(method = RequestMethod.GET, value = "getGroup")
     public GroupDto getGroup (@RequestParam int groupId) {
-        return new GroupDto(new BigInteger(String.valueOf(1)),"Fruit");
+        return new GroupDto(1L,"Fruit");
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup")
@@ -27,12 +27,12 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup")
-    public GroupDto updateGroup(@RequestParam int groupId) {
-        return new GroupDto(new BigInteger(String.valueOf(1)), "Fruit");
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
+        return groupDto;
     }
 
-    @RequestMapping( method = RequestMethod.DELETE, value = "deleteProduct")
-    public void deleteProduct(@RequestParam int productId) {
+    @RequestMapping( method = RequestMethod.DELETE, value = "deleteGroup")
+    public void deleteGroup(@RequestParam int groupId) {
     }
 
 }
