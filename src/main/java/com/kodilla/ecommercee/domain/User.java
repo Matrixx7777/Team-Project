@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -30,6 +31,13 @@ public class User {
 
     @Column(name = "carts")
     private List<Cart> cartList;
+
+    User(Long id, String firstName, String lastName){
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.cartList = new ArrayList<Cart>();
+    }
 
     public Long getId() {
         return id;
