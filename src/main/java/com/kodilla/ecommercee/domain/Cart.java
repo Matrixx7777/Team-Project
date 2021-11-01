@@ -1,11 +1,14 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
 @Table(name="CARTS")
 public class Cart {
 

@@ -7,13 +7,14 @@ public class ProductDto {
     private double price;
     private int groupId;
 
-    public ProductDto(Long id, String name, String description, double price, int groupId) {
+    public ProductDto(Long id) { /*, String name, String description, double price, int groupId) {*/
         this.id = id;
-        this.name = name;
+    }
+    /*    this.name = name;
         this.description = description;
         this.price = price;
         this.groupId = groupId;
-    }
+    }*/
 
     public Long getId() {
         return id;
