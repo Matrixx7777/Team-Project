@@ -7,6 +7,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,12 +28,9 @@ public class User {
     @Column(name = "surname")
     private String lastName;
 
-        @OneToMany(
-            targetEntity = Cart.class,
-            mappedBy = "user",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY
-    )
+    @Column(name = "carts")
+    private List<Cart> cartList;
+
     public Long getId() {
         return id;
     }
@@ -44,4 +42,12 @@ public class User {
     public String getLastName() {
         return lastName;
     }
+
+    @OneToMany(
+            targetEntity = Cart.class,
+            mappedBy = "user",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY
+    )
+    public List<Cart> getCartList(){ return cartList; }
 }
