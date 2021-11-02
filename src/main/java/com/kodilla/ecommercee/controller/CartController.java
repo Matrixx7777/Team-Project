@@ -33,9 +33,10 @@ public class CartController {
     private UserMapper userMapper;
 
     @PostMapping("createCart")
-    public Cart createCart(@RequestBody CartDto cartDto) {
+    public CartDto createCart(@RequestBody CartDto cartDto) {
         Cart cart = cartMapper.mapToCart(cartDto);
-        return cartDbService.saveCart(cart);
+        Cart savedCart = cartDbService.saveCart(cart);
+        return cartMapper.mapToCartDto(savedCart);
     }
 
     @GetMapping("getCarts")
@@ -73,10 +74,11 @@ public class CartController {
     }
 
     @PostMapping("makeOrder")
-    public void makeOrder(@RequestParam long cartId) throws CartNotFoundException {
+    public OrderDto makeOrder(@RequestParam long cartId) throws CartNotFoundException {
         Cart cart = getCart(cartId);
         Order order = new Order(cart,OrderStatus.CREATED);
         orderDbService.saveOrder(order);
+        return orderMapper.mapToOrderDto(order);
     }
 
 
