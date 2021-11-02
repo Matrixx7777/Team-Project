@@ -22,4 +22,8 @@ public class CartMapper {
                 userMapper.mapToUserDto(cart.getUser()),
                 productDtoList);
     }
+
+    public Cart mapToCart(CartDto cartDto) {
+        return new Cart(userMapper.mapToUser(cartDto.getUserDto()));
+    }
 }

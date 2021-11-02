@@ -35,9 +35,8 @@ public class Cart {
     )
     private List<Product> products = new ArrayList<>();
 
-    public Cart(User user, Order order) {
+    public Cart(User user) {
         this.user = user;
-        this.order = order;
     }
 
     public Cart() {

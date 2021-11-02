@@ -21,4 +21,12 @@ public class User {
             fetch = FetchType.LAZY
     )
     private List<Cart> carts;
+
+    public User(String firstname, String lastname) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+    }
+
+    public User() {
+    }
 }
