@@ -53,7 +53,7 @@ public class Product {
     }
 
     @NotNull
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "GROUP_ID")
     public Group getGroup() {
         return group;
