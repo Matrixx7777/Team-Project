@@ -18,8 +18,7 @@ public class Product {
 
     public Product() {    }
 
-    public Product(Long id, String name, String description, double price, Group group) {
-        this.id = id;
+    public Product(String name, String description, double price, Group group) {
         this.name = name;
         this.description = description;
         this.price = price;
