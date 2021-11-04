@@ -6,27 +6,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "CARTS")
+@Table(name="CARTS")
 public class Cart {
-
-    private Long id;
-    private List<Product> products = new ArrayList<>();
-
-    public Cart() {
-
-    }
-
-    public Cart(Long id) {
-        this.id = id;
-    }
 
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name = "CART_ID", unique = true)
-    public Long getId() {
-        return id;
-    }
+    @Column(name="CART_ID", unique = true)
+    private Long id;
+
+    @ManyToOne
+    @NotNull
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ORDER_ID")
+    private Order order;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
@@ -34,16 +30,15 @@ public class Cart {
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
-    public List<Product> getProducts() {
-        return products;
+
+    private List<Product> products = new ArrayList<>();
+
+    public Cart(User user, Order order) {
+        this.user = user;
+        this.order = order;
     }
 
-    private void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public Cart() {
     }
 
 }
