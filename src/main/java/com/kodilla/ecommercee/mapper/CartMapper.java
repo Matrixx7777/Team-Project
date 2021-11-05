@@ -3,11 +3,13 @@ package com.kodilla.ecommercee.mapper;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.ProductDto;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+@AllArgsConstructor
 public class CartMapper {
 
     private ProductMapper productMapper;
@@ -21,9 +23,5 @@ public class CartMapper {
                 cart.getId(),
                 userMapper.mapToUserDto(cart.getUser()),
                 productDtoList);
-    }
-
-    public Cart mapToCart(CartDto cartDto) {
-        return new Cart(userMapper.mapToUser(cartDto.getUserDto()));
     }
 }

@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Getter
+@Table(name="USERS")
 public class User {
 
     @Id

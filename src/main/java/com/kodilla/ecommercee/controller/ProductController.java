@@ -3,7 +3,7 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.dto.ProductDto;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigInteger;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping(value = "getProduct")
     public ProductDto getProduct (@RequestParam int productId) {
-        return new ProductDto(1L,"Test product","Test product description",9.99,1);
+        return new ProductDto(1L); /*,"Test product","Test product description",9.99,1);*/
     }
 
     @PostMapping(value = "createProduct")

@@ -3,51 +3,53 @@ package com.kodilla.ecommercee.controller;
 import com.kodilla.ecommercee.domain.Cart;
 import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.domain.Product;
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.OrderDto;
 import com.kodilla.ecommercee.dto.ProductDto;
-import com.kodilla.ecommercee.dto.UserDto;;
+;
 import com.kodilla.ecommercee.exceptions.CartNotFoundException;
 import com.kodilla.ecommercee.exceptions.ProductNotFoundException;
+import com.kodilla.ecommercee.exceptions.UserNotFoundException;
 import com.kodilla.ecommercee.mapper.CartMapper;
+import com.kodilla.ecommercee.mapper.OrderMapper;
 import com.kodilla.ecommercee.mapper.ProductMapper;
-import com.kodilla.ecommercee.mapper.UserMapper;
 import com.kodilla.ecommercee.service.CartDbService;
-import com.kodilla.ecommercee.service.OrderDbService;
-import com.kodilla.ecommercee.service.ProductDbService;
 import com.kodilla.ecommercee.status.OrderStatus;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 
 import java.util.List;
 
+
+@AllArgsConstructor
 @RestController
 @RequestMapping("/v1/cart")
 public class CartController {
 
     private CartDbService cartDbService;
-    private ProductDbService productDbService;
-    private OrderDbService orderDbService;
     private CartMapper cartMapper;
     private ProductMapper productMapper;
-    private UserMapper userMapper;
+    private OrderMapper orderMapper;
 
     @PostMapping("createCart")
-    public CartDto createCart(@RequestBody CartDto cartDto) {
-        Cart cart = cartMapper.mapToCart(cartDto);
-        Cart savedCart = cartDbService.saveCart(cart);
-        return cartMapper.mapToCartDto(savedCart);
+    public CartDto createCart(@RequestParam Long userId) throws UserNotFoundException {
+        User user = cartDbService.getUser(userId).orElseThrow(UserNotFoundException::new);
+        Cart cart = new Cart(user);
+        cartDbService.saveCart(cart);
+        return cartMapper.mapToCartDto(cart);
     }
 
-    @GetMapping("getCarts")
-    public List<ProductDto> getProductsFromCart(@RequestParam long cartId) throws CartNotFoundException {
+    @GetMapping("getProductsFromCart")
+    public List<ProductDto> getProductsFromCart(@RequestParam Long cartId) throws CartNotFoundException {
             Cart cart = getCart(cartId);
             List<Product> productsInCart = cart.getProducts();
             return productMapper.mapToProductDtoList(productsInCart);
     }
 
     @PostMapping("addProductToCart")
-    public void addProductToCart(@RequestParam long cartId, @RequestParam long productId) throws CartNotFoundException, ProductNotFoundException {
+    public void addProductToCart(@RequestParam Long cartId, @RequestParam Long productId) throws CartNotFoundException, ProductNotFoundException {
         Cart cart = getCart(cartId);
         Product product = getProduct(productId);
 
@@ -55,11 +57,11 @@ public class CartController {
         product.getCarts().add(cart);
 
         cartDbService.saveCart(cart);
-        productDbService.saveProduct(product);
+        cartDbService.saveProduct(product);
     }
 
     @DeleteMapping("deleteProductFromCart")
-    public void deleteProductFromCart(@RequestParam long cartId, @RequestParam long productId) throws CartNotFoundException, ProductNotFoundException{
+    public void deleteProductFromCart(@RequestParam Long cartId, @RequestParam Long productId) throws CartNotFoundException, ProductNotFoundException{
         Cart cart = getCart(cartId);
         Product product = getProduct(productId);
 
@@ -70,14 +72,14 @@ public class CartController {
             System.out.println("There is no such a product in Cart");
         }
         cartDbService.saveCart(cart);
-        productDbService.saveProduct(product);
+        cartDbService.saveProduct(product);
     }
 
     @PostMapping("makeOrder")
-    public OrderDto makeOrder(@RequestParam long cartId) throws CartNotFoundException {
+    public OrderDto makeOrder(@RequestParam Long cartId) throws CartNotFoundException {
         Cart cart = getCart(cartId);
         Order order = new Order(cart,OrderStatus.CREATED);
-        orderDbService.saveOrder(order);
+        cartDbService.saveOrder(order);
         return orderMapper.mapToOrderDto(order);
     }
 
@@ -87,6 +89,6 @@ public class CartController {
     }
 
     public Product getProduct(Long productId) throws ProductNotFoundException {
-        return productDbService.getProduct(productId).orElseThrow(ProductNotFoundException::new);
+        return cartDbService.getProduct(productId).orElseThrow(ProductNotFoundException::new);
     }
 }
