@@ -30,6 +30,7 @@ public class Cart {
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
+
     private List<Product> products = new ArrayList<>();
 
     public Cart(User user, Order order) {
