@@ -2,15 +2,18 @@ package com.kodilla.ecommercee.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
+@Getter
 @Entity
 @Table(name = "USER")
 public class User {
@@ -27,21 +30,14 @@ public class User {
     @Column(name = "surname")
     private String lastName;
 
-        @OneToMany(
+
+    @OneToMany(
             targetEntity = Cart.class,
             mappedBy = "user",
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public Long getId() {
-        return id;
-    }
+    @Column(name = "carts")
+    private List<Cart> carts;
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
 }
