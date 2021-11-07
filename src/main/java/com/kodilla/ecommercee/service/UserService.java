@@ -35,4 +35,20 @@ public class UserService {
         }
     }
 
+    public User updateUser(final User user){
+
+        if(repository.existsById(user.getId())) {
+            User updatedUser = repository.findById(user.getId()).orElse(user);
+            updatedUser.setFirstName(user.getFirstName());
+            updatedUser.setLastName(user.getLastName());
+            updatedUser.setCartList(user.getCartList());
+            return repository.save(updatedUser);
+        }else {
+            System.out.println("Nie znaleziono użytkownika");
+            return user;
+        }
+
+
+    }
+
 }
