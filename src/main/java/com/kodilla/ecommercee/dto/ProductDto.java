@@ -13,10 +13,6 @@ public class ProductDto {
     private double price;
     private int groupId;
 
-    
-    public ProductDto(Long id) {
-        this.id = id;
-    }
 }
 
 

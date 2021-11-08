@@ -48,7 +48,7 @@ public class CartController {
             return productMapper.mapToProductDtoList(productsInCart);
     }
 
-    @PostMapping("addProductToCart")
+    @PutMapping("addProductToCart")
     public void addProductToCart(@RequestParam Long cartId, @RequestParam Long productId) throws CartNotFoundException, ProductNotFoundException {
         Cart cart = getCart(cartId);
         Product product = getProduct(productId);
