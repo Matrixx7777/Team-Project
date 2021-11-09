@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 @Transactional
-public interface GroupRepository extends CrudRepository<Group,Long>{
+public interface GroupRepository extends CrudRepository<Group,Long> {
 
     @Override
     List<Group> findAll();

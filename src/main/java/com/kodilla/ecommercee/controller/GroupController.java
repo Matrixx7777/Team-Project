@@ -33,7 +33,7 @@ public class GroupController {
         }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createGroup (@RequestBody GroupDto groupDto){
+    public void createGroup (@RequestBody GroupDto groupDto) {
         Group group = groupMapper.mapToGroup(groupDto);
         groupDbService.saveGroup(group);
     }
