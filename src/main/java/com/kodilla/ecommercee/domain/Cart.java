@@ -18,7 +18,7 @@ public class Cart {
     @Column(name="CART_ID", unique = true)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     @NotNull
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -27,7 +27,7 @@ public class Cart {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
     @JoinTable(
             name= "CARTS_HAS_PRODUCTS",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
@@ -43,4 +43,7 @@ public class Cart {
     public Cart() {
     }
 
+    public Long getId() {
+        return id;
+    }
 }
