@@ -13,9 +13,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
-@Getter
 @Entity
-@Table(name = "USER")
+@Getter
+@Table(name="USERS")
 public class User {
 
     @Id
@@ -24,12 +24,12 @@ public class User {
     @Column(name = "ID", unique = true)
     private Long id;
 
+
     @Column(name = "name")
     private String firstName;
 
     @Column(name = "surname")
     private String lastName;
-
 
     @OneToMany(
             targetEntity = Cart.class,
@@ -39,5 +39,4 @@ public class User {
     )
     @Column(name = "carts")
     private List<Cart> carts;
-
 }
