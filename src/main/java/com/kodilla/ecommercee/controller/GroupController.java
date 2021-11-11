@@ -33,24 +33,29 @@ public class GroupController {
         }
 
     @RequestMapping(method = RequestMethod.POST, value = "createGroup", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public void createGroup (@RequestBody GroupDto groupDto) {
+    public void createGroup(@RequestBody GroupDto groupDto) {
         Group group = groupMapper.mapToGroup(groupDto);
         groupDbService.saveGroup(group);
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public GroupDto updateGroup(@RequestParam Long groupId, @RequestBody GroupDto groupDto) throws GroupNotFoundException {
-        Group updatedGroup = groupMapper.mapToGroup(groupDto);
-        updatedGroup.setId(groupId);
-        groupDbService.update(groupId, updatedGroup);
-        return groupMapper.mapToGroupDto(updatedGroup);
-    }
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto) throws GroupNotFoundException {
+    Group group = groupMapper.mapToGroup(groupDto);
+    Group updateGroup = groupDbService.updateGroup(group);
+        return groupMapper.mapToGroupDto(updateGroup);
+}
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteGroup")
-    public void deleteGroup (@RequestParam Long groupId) throws GroupNotFoundException {
-        if (groupDbService.getGroup(groupId).isPresent()) {
-            groupDbService.deleteGroup(groupId);
-        } else throw new GroupNotFoundException();
+    public void deleteGroup(@RequestParam Long groupId) throws GroupNotFoundException {
+        try {
+            groupDbService.deleteById(groupId);
+        }
+        catch(GroupNotFoundException e){
+            throw new GroupNotFoundException();
+        }
+        finally {
+            System.out.println("Method has been finished");
+        }
     }
 }
 

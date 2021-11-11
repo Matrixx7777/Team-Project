@@ -1,7 +1,6 @@
 package com.kodilla.ecommercee.service;
 
 import com.kodilla.ecommercee.exception.GroupNotFoundException;
-import com.kodilla.ecommercee.exception.GroupAlreadyExistsException;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.domain.Group;
 import lombok.RequiredArgsConstructor;
@@ -14,25 +13,31 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class GroupDbService {
 
-    private GroupRepository groupRepository;
+    private final GroupRepository groupRepository;
 
-    public List<Group> getGroups() { return groupRepository.findAll(); }
-
-    public Optional<Group> getGroup(final Long groupId) { return groupRepository.findById(groupId); }
-
-    public void saveGroup(final Group group) throws GroupAlreadyExistsException {
-        if (!groupRepository.findByName(group.getName()).isPresent()) {
-            groupRepository.save(group);
-        } else throw new GroupAlreadyExistsException();
+    public List<Group> getGroups() {
+        return groupRepository.findAll();
     }
 
-    public void update(final Long groupId, Group group) throws GroupNotFoundException {
-        if(groupRepository.existsById(groupId)){
-            group.setId(groupId);
-        } else throw new GroupNotFoundException();
+    public Optional<Group> getGroup(final Long groupId) {
+        return groupRepository.findById(groupId);
     }
 
-    public void deleteGroup ( final Long groupId){
-        groupRepository.deleteById(groupId);
+    public Group saveGroup(final Group group) { return groupRepository.save(group); }
+
+    public Group updateGroup(final Group group) throws GroupNotFoundException{
+        if(groupRepository.existsById(group.getId())) {
+            Group updateGroup = groupRepository.findById(group.getId()).orElse(group);
+            updateGroup.setName(group.getName());
+            return groupRepository.save(updateGroup);
+        }
+        else throw new GroupNotFoundException();
     }
+
+    public void deleteById(Long groupId) throws GroupNotFoundException {
+        if(groupRepository.existsById(groupId)) {
+            groupRepository.deleteById(groupId);
+        }
+        else throw new GroupNotFoundException();
+        }
 }

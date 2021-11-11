@@ -17,11 +17,6 @@ public interface GroupRepository extends CrudRepository<Group,Long> {
     @Override
     Optional<Group> findById(Long groupId);
 
-    Optional<Group> findByName(String groupName);
-
     @Override
     Group save(Group group);
-
-    @Override
-    void deleteById(Long groupId);
 }
