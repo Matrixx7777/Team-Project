@@ -1,10 +1,13 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
 @Entity
 @Table(name = "PRODUCTS")
 public class Product {
