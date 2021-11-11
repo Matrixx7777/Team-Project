@@ -12,7 +12,11 @@ public class ProductMapper {
 
     public ProductDto mapToProductDto(Product product) {
         return new ProductDto(
-                product.getId());
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getGroup().getId());
     }
 
     public List<ProductDto> mapToProductDtoList(List<Product> products) {

@@ -10,8 +10,8 @@ public class UserMapper {
     public UserDto mapToUserDto(User user) {
         return new UserDto(
                 user.getId(),
-                user.getFirstname(),
-                user.getLastname()
+                user.getFirstName(),
+                user.getLastName()
         );
     }
 

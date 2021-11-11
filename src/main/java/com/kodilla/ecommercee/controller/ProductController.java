@@ -18,7 +18,7 @@ public class ProductController {
 
     @GetMapping(value = "getProduct")
     public ProductDto getProduct (@RequestParam int productId) {
-        return new ProductDto(1L); /*,"Test product","Test product description",9.99,1);*/
+        return new ProductDto(1L,"Test product","Test product description",9.99,1L);
     }
 
     @PostMapping(value = "createProduct")
