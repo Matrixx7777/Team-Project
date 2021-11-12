@@ -27,7 +27,7 @@ public class Cart {
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.REFRESH})
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name= "CARTS_HAS_PRODUCTS",
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
