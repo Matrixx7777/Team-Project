@@ -32,8 +32,7 @@ public class User {
     @Column(name = "carts")
     private List<Cart> cartList;
 
-    User(Long id, String firstName, String lastName){
-        this.id = id;
+    User( String firstName, String lastName){
         this.firstName = firstName;
         this.lastName = lastName;
         this.cartList = new ArrayList<Cart>();

@@ -21,7 +21,7 @@ public class UserDto {
         this.cartDtoList = cartDtoList;
     }
 
-    public UserDto(long userId, String firstName, String lastName) {
+    public UserDto(Long id, String firstName, String lastName) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -39,6 +39,6 @@ public class UserDto {
         return lastName;
     }
 
-    public List<CartDto> getCartDtoList(){ return cartDtoList; }
+
 
 }
