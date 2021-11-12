@@ -1,38 +1,19 @@
 package com.kodilla.ecommercee.dto;
 
+import com.kodilla.ecommercee.status.OrderStatus;
+import lombok.Getter;
+
+@Getter
 public class OrderDto {
 
     private Long id;
-    private int cartId;
-    private String oderStatus;
+    private CartDto cartDto;
+    private OrderStatus orderStatus;
 
-    public OrderDto(Long id, int cartId, String oderStatus) {
+    public OrderDto(Long id, CartDto cartDto, OrderStatus orderStatus) {
         this.id = id;
-        this.cartId = cartId;
-        this.oderStatus = oderStatus;
+        this.cartDto = cartDto;
+        this.orderStatus = orderStatus;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
-    public String getOderStatus() {
-        return oderStatus;
-    }
-
-    public void setOderStatus(String oderStatus) {
-        this.oderStatus = oderStatus;
-    }
 }
