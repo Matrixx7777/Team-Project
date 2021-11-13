@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ProductMapper {
 
-    private GroupDbService groupDbService;
+    private final GroupDbService groupDbService;
 
     public Product mapToProduct(final ProductDto productDto) throws GroupNotFoundException {
         Group group = groupDbService.getGroup(productDto.getGroupId()).orElseThrow(GroupNotFoundException::new);
