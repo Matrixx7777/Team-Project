@@ -12,10 +12,10 @@ import java.util.List;
 @AllArgsConstructor
 public class CartMapper {
 
-    private ProductMapper productMapper;
-    private UserMapper userMapper;
+    private static ProductMapper productMapper;
+    private static UserMapper userMapper;
 
-    public CartDto mapToCartDto(Cart cart) {
+    public static CartDto mapToCartDto(Cart cart) {
 
         List<ProductDto> productDtoList = productMapper.mapToProductDtoList(cart.getProducts());
 
@@ -24,4 +24,7 @@ public class CartMapper {
                 userMapper.mapToUserDto(cart.getUser()),
                 productDtoList);
     }
+
+
+
 }

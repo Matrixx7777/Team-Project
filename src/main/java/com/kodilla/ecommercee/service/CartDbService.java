@@ -11,6 +11,7 @@ import com.kodilla.ecommercee.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -43,5 +44,9 @@ public class CartDbService {
 
     public Optional<User> getUser(Long userId) {
         return userRepository.findById(userId);
+    }
+
+    public List<Cart> getCarts() {
+        return cartRepository.findAll();
     }
 }
