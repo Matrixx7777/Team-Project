@@ -16,8 +16,8 @@ public class OrderController {
     }
 
     @GetMapping(value = "getOrder")
-    public OrderDto getOrder (@RequestParam int orderId) {
-        return new OrderDto(1L, 1, "new status");
+    public void getOrder (@RequestParam int orderId) {
+        //return new OrderDto(1L, 1, "new status");
     }
 
     @PostMapping(value = "createOrder")

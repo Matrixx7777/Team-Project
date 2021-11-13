@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.domain;
 
-import lombok.NoArgsConstructor;
+
+import lombok.Getter;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +11,7 @@ import java.util.List;
 
 
 @Entity
+@Getter
 @Table(name="CARTS")
 public class Cart {
 
@@ -33,11 +36,11 @@ public class Cart {
             joinColumns = {@JoinColumn(name = "CART_ID", referencedColumnName = "CART_ID")},
             inverseJoinColumns = {@JoinColumn(name = "PRODUCT_ID", referencedColumnName = "PRODUCT_ID")}
     )
+
     private List<Product> products = new ArrayList<>();
 
-    public Cart(User user, Order order) {
+    public Cart(User user) {
         this.user = user;
-        this.order = order;
     }
 
     public Cart() {

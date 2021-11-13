@@ -6,6 +6,7 @@ import com.kodilla.ecommercee.dto.CartDto;
 import com.kodilla.ecommercee.dto.UserDto;
 import org.springframework.stereotype.Service;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -13,7 +14,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserMapper {
 
+    private CartMapper cartMapper;
+
     public User mapToUser(final UserDto userDto){
+
         return new User(
                 userDto.getId(),
                 userDto.getFirstName(),
@@ -23,6 +27,7 @@ public class UserMapper {
     }
 
     public UserDto mapToUserDto(final User user){
+
         return new UserDto(
                 user.getId(),
                 user.getFirstName(),
@@ -31,6 +36,7 @@ public class UserMapper {
         );
     }
 
+
     public List<UserDto> mapToUserDtoList(final List<User> userList){
         return userList.stream()
                 .map(this::mapToUserDto)
@@ -38,3 +44,5 @@ public class UserMapper {
     }
 
 }
+
+

@@ -2,6 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Entity
-@Table(name = "USER")
+@Getter
+@Table(name="USERS")
 public class User {
 
     @Id
@@ -23,19 +24,22 @@ public class User {
     @Column(name = "ID", unique = true)
     private Long id;
 
+
     @Column(name = "name")
     private String firstName;
 
     @Column(name = "surname")
     private String lastName;
 
+
     @Column(name = "carts")
     private List<Cart> cartList;
 
-    User( String firstName, String lastName){
+    public User(Long id, String firstName, String lastName, List<Cart> cartList){
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.cartList = new ArrayList<Cart>();
+        this.cartList = cartList;
     }
 
     public Long getId() {
@@ -50,6 +54,7 @@ public class User {
         return lastName;
     }
 
+
     @OneToMany(
             targetEntity = Cart.class,
             mappedBy = "user",
@@ -57,4 +62,5 @@ public class User {
             fetch = FetchType.LAZY
     )
     public List<Cart> getCartList(){ return cartList; }
+
 }
