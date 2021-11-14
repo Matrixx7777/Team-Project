@@ -1,7 +1,7 @@
 package com.kodilla.ecommercee.dto;
 
-import lombok.NoArgsConstructor;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Data;
 
 @AllArgsConstructor
