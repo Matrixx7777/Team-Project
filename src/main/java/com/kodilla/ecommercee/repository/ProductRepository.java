@@ -10,6 +10,7 @@ import java.util.List;
 @Repository
 @Transactional
 public interface ProductRepository extends CrudRepository<Product,Long> {
+
     @Override
     List<Product> findAll();
 }

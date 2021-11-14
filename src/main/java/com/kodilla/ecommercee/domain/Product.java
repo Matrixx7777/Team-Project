@@ -61,7 +61,7 @@ public class Product {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products",fetch = FetchType.EAGER)
     public List<Cart> getCarts() {
         return carts;
     }
