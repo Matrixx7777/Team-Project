@@ -1,5 +1,8 @@
 package com.kodilla.ecommercee.dto;
 
+import lombok.Getter;
+
+@Getter
 public class UserDto {
 
     private Long id;
