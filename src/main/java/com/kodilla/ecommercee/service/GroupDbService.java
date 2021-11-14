@@ -6,8 +6,8 @@ import com.kodilla.ecommercee.domain.Group;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,15 +24,6 @@ public class GroupDbService {
     }
 
     public Group saveGroup(final Group group) { return groupRepository.save(group); }
-
-    public Group updateGroup(final Group group) throws GroupNotFoundException{
-        if(groupRepository.existsById(group.getId())) {
-            Group updateGroup = groupRepository.findById(group.getId()).orElse(group);
-            updateGroup.setName(group.getName());
-            return groupRepository.save(updateGroup);
-        }
-        else throw new GroupNotFoundException();
-    }
 
     public void deleteById(Long groupId) throws GroupNotFoundException {
         if(groupRepository.existsById(groupId)) {
