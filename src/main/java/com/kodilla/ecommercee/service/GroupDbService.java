@@ -30,5 +30,5 @@ public class GroupDbService {
             groupRepository.deleteById(groupId);
         }
         else throw new GroupNotFoundException();
-        }
+    }
 }

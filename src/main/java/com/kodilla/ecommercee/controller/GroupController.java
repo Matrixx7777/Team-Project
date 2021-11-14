@@ -39,11 +39,11 @@ public class GroupController {
     }
 
     @RequestMapping(method = RequestMethod.PUT, value = "updateGroup",consumes = MediaType.APPLICATION_JSON_VALUE)
-    public GroupDto updateGroup(@RequestBody GroupDto groupDto) throws GroupNotFoundException {
-    Group group = groupMapper.mapToGroup(groupDto);
-    Group updateGroup = groupDbService.updateGroup(group);
+    public GroupDto updateGroup(@RequestBody GroupDto groupDto) {
+        Group group = groupMapper.mapToGroup(groupDto);
+        Group updateGroup = groupDbService.saveGroup(group);
         return groupMapper.mapToGroupDto(updateGroup);
-}
+    }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "deleteGroup")
     public void deleteGroup(@RequestParam Long groupId) throws GroupNotFoundException {
@@ -58,4 +58,3 @@ public class GroupController {
         }
     }
 }
-
