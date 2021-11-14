@@ -4,8 +4,8 @@ import org.springframework.stereotype.Service;
 import com.kodilla.ecommercee.domain.Group;
 import com.kodilla.ecommercee.dto.GroupDto;
 
-import java.util.List;
 import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class GroupMapper {
