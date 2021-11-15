@@ -56,7 +56,7 @@ public class Product {
     }
 
 
-    @ManyToOne(cascade = {CascadeType.ALL/*PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE*/})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "GROUP_ID")
     public Group getGroup() {
         return group;

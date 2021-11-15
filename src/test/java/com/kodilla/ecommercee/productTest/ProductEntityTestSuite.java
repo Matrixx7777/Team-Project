@@ -130,6 +130,8 @@ public class ProductEntityTestSuite {
         assertEquals(numberOfUsers, numberOfUsersAfterDeleting);
         assertEquals(numbersOfGroups,numbersOfGroupsAfterDeleting);
 
+        //Cleanup
+        groupRepository.deleteAll();
     }
 
     @Test
@@ -149,6 +151,10 @@ public class ProductEntityTestSuite {
         assertEquals(9.99, updatedProduct.getPrice());
         assertEquals("New name", updatedProduct.getName());
         assertEquals("New description", updatedProduct.getDescription());
+        //Cleanup
+        updatedProduct.setGroup(null);
+        productRepository.save(updatedProduct);
+        productRepository.deleteAll();
+        groupRepository.deleteAll();
     }
-
 }

@@ -24,7 +24,7 @@ public class Group {
     private String name;
 
     @OneToMany(targetEntity = Product.class,
-            mappedBy = "group",cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE},
+            mappedBy = "group",cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.MERGE},
             fetch = FetchType.EAGER)
     private List<Product> productList;
 
