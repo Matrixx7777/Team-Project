@@ -1,6 +1,7 @@
 package com.kodilla.ecommercee.domain;
 
 import lombok.Getter;
+import org.hibernate.engine.internal.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -54,14 +55,17 @@ public class Product {
         return price;
     }
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade = {CascadeType.ALL/*PERSIST, CascadeType.REFRESH, CascadeType.DETACH, CascadeType.MERGE*/})
     @JoinColumn(name = "GROUP_ID")
     public Group getGroup() {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products",fetch = FetchType.EAGER)
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            mappedBy = "products",
+            fetch = FetchType.EAGER)
     public List<Cart> getCarts() {
         return carts;
     }
@@ -70,19 +74,19 @@ public class Product {
         this.id = id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    private void setPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    private void setGroup(Group group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
