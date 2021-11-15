@@ -28,8 +28,7 @@ public class Group {
             fetch = FetchType.EAGER)
     private List<Product> productList;
 
-    public Group(String name) {
-        this.name = name;
-        this.productList = new ArrayList();
-    }
+
+    public Group(String name) { this.name = name; this.productList = new ArrayList(); }
 }
+

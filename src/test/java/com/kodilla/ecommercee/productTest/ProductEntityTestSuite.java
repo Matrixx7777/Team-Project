@@ -45,8 +45,8 @@ public class ProductEntityTestSuite {
         //Then
         int numberOfGroups = groupRepository.findAll().size();
         int numberOfProducts = productRepository.findAll().size();
-        assertEquals(numberOfGroups,1);
-        assertEquals(numberOfProducts,1);
+        assertEquals(1,numberOfGroups);
+        assertEquals(1,numberOfProducts);
         //CleanUp
         productRepository.deleteAll();
         groupRepository.deleteAll();
