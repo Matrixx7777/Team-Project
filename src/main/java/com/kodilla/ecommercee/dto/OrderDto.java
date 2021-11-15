@@ -7,12 +7,12 @@ import lombok.Getter;
 public class OrderDto {
 
     private Long id;
-    private CartDto cartDto;
+    private Long cartDtoId;
     private OrderStatus orderStatus;
 
-    public OrderDto(Long id, CartDto cartDto, OrderStatus orderStatus) {
+    public OrderDto(Long id, Long cartDtoId, OrderStatus orderStatus) {
         this.id = id;
-        this.cartDto = cartDto;
+        this.cartDtoId = cartDtoId;
         this.orderStatus = orderStatus;
     }
 
