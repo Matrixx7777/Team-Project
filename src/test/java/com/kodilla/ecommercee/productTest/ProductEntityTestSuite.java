@@ -48,6 +48,9 @@ public class ProductEntityTestSuite {
         assertEquals(1,numberOfGroups);
         assertEquals(1,numberOfProducts);
         //CleanUp
+        Product productToDelete = productRepository.findAll().get(0);
+        productToDelete.setGroup(null);
+        productRepository.save(productToDelete);
         productRepository.deleteAll();
         groupRepository.deleteAll();
     }
@@ -77,6 +80,19 @@ public class ProductEntityTestSuite {
 
         //Then
         assertEquals(cartsInProductBeforeAdding + 1, cartsInProductAfterSaving);
+
+        //CleanUp
+        Product productToDelete= productRepository.findAll().get(0);
+        productToDelete.setGroup(null);
+        productToDelete.getCarts().remove(0);
+        Cart cartToDelete = cartRepository.findAll().get(0);
+        cartToDelete.getProducts().remove(0);
+        productRepository.save(productToDelete);
+        cartRepository.save(cartToDelete);
+        productRepository.deleteAll();
+        cartRepository.deleteAll();
+        groupRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     @Test
@@ -88,6 +104,7 @@ public class ProductEntityTestSuite {
         Cart cart = new Cart(user);
         product.getCarts().add(cart);
         cart.getProducts().add(product);
+        userRepository.save(user);
         productRepository.save(product);
         int numbersOfProducts = productRepository.findAll().size();
         int numbersOfCarts = cartRepository.findAll().size();
@@ -116,7 +133,7 @@ public class ProductEntityTestSuite {
     }
 
     @Test
-    public void UpdateProduct() {
+    public void updateProduct() {
         //Given
         Group group = new Group("Test group");
         Product product = new Product("Test product","Test product desc", 24.99, group);
