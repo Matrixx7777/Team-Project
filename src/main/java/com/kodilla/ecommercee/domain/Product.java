@@ -1,6 +1,8 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -21,7 +23,8 @@ public class Product {
 
     public Product() {    }
 
-    public Product(String name, String description, double price, Group group) {
+    public Product(Long id, String name, String description, double price, Group group) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -70,19 +73,19 @@ public class Product {
         this.id = id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    private void setDescription(String description) {
+    public void setDescription(String description) {
         this.description = description;
     }
 
-    private void setPrice(double price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    private void setGroup(Group group) {
+    public void setGroup(Group group) {
         this.group = group;
     }
 
