@@ -10,12 +10,17 @@ import java.util.Optional;
 @Repository
 @Transactional
 public interface UserRepository extends CrudRepository<User, Long> {
+
     @Override
     List<User> findAll();
+
+    @Override
+    Optional<User> findById(Long userId);
 
     @Override
     User save(User user);
 
     @Override
-    Optional<User> findById(Long id);
+    void deleteById(Long userId);
+
 }
