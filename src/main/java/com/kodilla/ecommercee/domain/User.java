@@ -38,7 +38,6 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    @Column(name = "carts")
     private List<Cart> carts = new ArrayList<>();
 
     public User(String firstName, String lastName) {
