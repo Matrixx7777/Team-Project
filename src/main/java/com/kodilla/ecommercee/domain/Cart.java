@@ -18,7 +18,7 @@ public class Cart {
     @Column(name="CART_ID", unique = true)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     @NotNull
     @JoinColumn(name = "USER_ID")
     private User user;
@@ -43,4 +43,7 @@ public class Cart {
     public Cart() {
     }
 
+    public Long getId() {
+        return id;
+    }
 }
