@@ -50,11 +50,7 @@ public class ProductEntityTestSuite {
         assertEquals(numberOfProducts,1);
         //Cleanup
         productRepository.deleteAll(); // usuwa też grupę, a nie powinien
-        //Then
-        int productsAfterDeleting = productRepository.findAll().size();
-        int groupsAfterDeletingProduct = groupRepository.findAll().size();
-        assertEquals(0,productsAfterDeleting);
-        assertEquals(1,groupsAfterDeletingProduct);
+        groupRepository.deleteAll();
 
     }
 
@@ -68,57 +64,70 @@ public class ProductEntityTestSuite {
         Cart cart = new Cart(user);
         productRepository.save(product);
 
-        int cartsBeforeSaving = cartRepository.findAll().size();
-        int productsBeforeSaving = productRepository.findAll().size();
 
         //When
         List<Product> products = productRepository.findAll();
         Product savedProduct = products.get(0);
         Long id = savedProduct.getId();
 
+        int cartsInProductBeforeSaving = savedProduct.getCarts().size();
         savedProduct.getCarts().add(cart);
         cart.getProducts().add(savedProduct);
-
         productRepository.save(savedProduct);
         Product productWithAddedCart = productRepository.findById(id).get();
-        System.out.println(productWithAddedCart.getCarts());
-
+        int cartsInProductAfterSaving = productWithAddedCart.getCarts().size();
 
         //Then
         int numberOfCarts = cartRepository.findAll().size();
         int numberOfProducts = productRepository.findAll().size();
         assertEquals(1,numberOfCarts);
         assertEquals(1,numberOfProducts);
-
-        //Co tu sprawdzić?
-        //czy ilość cartów w produkcie się zwiększyła
-        //czy ilość cartów się zwiększyła
-        //czy ilość produktów się zwiększyła?
-
+        assertEquals(cartsInProductBeforeSaving + 1, cartsInProductAfterSaving);
 
         //Cleanup
-        //productRepository.deleteAll(); //carta nie usuwa
-
-        //Then
-
-
-
+        productRepository.deleteAll(); //carta nie usuwa
+        cartRepository.deleteAll();
+        groupRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
 
     @Test
-    public void testRemoveProduct() {
+    public void testDeleteProduct() {
+
+        //Given
+        Group group = new Group("Test group");
+        Product product = new Product("Test product","Test product desc", 24.99, group);
+        User user = new User("Jan","Nowak");
+        Cart cart = new Cart(user);
+        product.getCarts().add(cart);
+        cart.getProducts().add(product);
+        productRepository.save(product);
+        int numbersOfProducts = productRepository.findAll().size();
+        int numbersOfCarts = cartRepository.findAll().size();
+        int numberOfUsers = userRepository.findAll().size();
+        int numbersOfGroups = groupRepository.findAll().size();
+
+        System.out.println("products " + numbersOfProducts);
+        System.out.println("carts " + numbersOfCarts);
+        System.out.println("users " + numberOfUsers);
+        System.out.println("groups " + numbersOfGroups);
+
+        //When
+        productRepository.deleteById(1L);
 
 
-    //czy spowoduje usunięcie grupy i cartów?
-        //powinno tylko spowodować usunięcie z listy produków. Lista cartów i grup powinna zostać nie zmieniona
+        //Then
+        int numbersOfProductsAfterDeleting = productRepository.findAll().size();
+        int numbersOfCartsAfterDeleting = cartRepository.findAll().size();
+        int numberOfUsersAfterDeleting = userRepository.findAll().size();
+        int numbersOfGroupsAfterDeleting = groupRepository.findAll().size();
 
-        /*int cartsAfterDeletingProduct = cartRepository.findAll().size();
-        int groupsAfterDeletingProduct = groupRepository.findAll().size();
-        int usersAfterDeletingProduct = userRepository.findAll().size();
-        assertEquals(1,cartsAfterDeletingProduct);
-        assertEquals(1,groupsAfterDeletingProduct);//klasycznie usuwa grupe
-        assertEquals(1,usersAfterDeletingProduct);*/
+        assertEquals(numbersOfProducts - 1, numbersOfProductsAfterDeleting);
+        //assertEquals(numbersOfCarts, numbersOfCartsAfterDeleting); //usuwa carta
+        //assertEquals(numberOfUsers, numberOfUsersAfterDeleting); //usuwa usera
+        assertEquals(numbersOfGroups,numbersOfGroupsAfterDeleting);
+
     }
 
     @Test
