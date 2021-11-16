@@ -17,7 +17,7 @@ public class UserController {
     private final UserDbService userDbService;
     private final UserMapper userMapper;
 
-    @RequestMapping("/{id}")
+    @GetMapping("/{id}")
     public UserDto getUser(@PathVariable("id") long userId) {
         User user = userDbService.getUser(userId);
         return userMapper.mapToUserDto(user);
@@ -29,7 +29,7 @@ public class UserController {
         return userMapper.mapToUserDtoList(users);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     public void deleteUser(@PathVariable("id") long userId) {
         userDbService.deleteUser(userId);
     }
