@@ -1,43 +1,50 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.User;
 import com.kodilla.ecommercee.dto.UserDto;
-import org.springframework.http.MediaType;
+import com.kodilla.ecommercee.mapper.UserMapper;
+import com.kodilla.ecommercee.service.UserDbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/user")
-@CrossOrigin(origins = "*")
+@RequestMapping("/v1/users")
+@RequiredArgsConstructor
 public class UserController {
 
+    private final UserDbService userDbService;
+    private final UserMapper userMapper;
 
-
-    @RequestMapping(method = RequestMethod.GET, value = "getUsers")
-    public List<UserDto> getUser() {
-
-        return new ArrayList<>();
+    @RequestMapping("/{id}")
+    public UserDto getUser(@PathVariable("id") long userId) {
+        User user = userDbService.getUser(userId);
+        return userMapper.mapToUserDto(user);
     }
 
-    @GetMapping(value = "getUser")
-    public UserDto getUser(@RequestParam Long userId)  {
-        return new UserDto(1L, "Test", "test");
-
+    @GetMapping
+    public List<UserDto> getUsers()  {
+        List<User> users = userDbService.getUsers();
+        return userMapper.mapToUserDtoList(users);
     }
 
-    @DeleteMapping(value = "deleteUser")
-    public void deleteUser(@RequestParam Long userId) {
-
+    @DeleteMapping("/{id}")
+    public void deleteUser(@PathVariable("id") long userId) {
+        userDbService.deleteUser(userId);
     }
 
-    @PutMapping(value = "updateUser")
+    @PutMapping
     public UserDto updateUser(@RequestBody UserDto userDto) {
-        return new UserDto(1L, "Test", "test");
+        User user = userMapper.mapToUser(userDto);
+        User updatedUser = userDbService.updateUser(user);
+        return userMapper.mapToUserDto(updatedUser);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "createUser", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping
     public UserDto createUser(@RequestBody UserDto userDto) {
-        return new UserDto(1L, "Test", "test");
+        User user = userMapper.mapToUser(userDto);
+        User savedUser = userDbService.saveUser(user);
+        return userMapper.mapToUserDto(savedUser);
     }
 }

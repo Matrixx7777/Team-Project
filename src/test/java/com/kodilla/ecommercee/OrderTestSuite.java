@@ -34,7 +34,7 @@ public class OrderTestSuite {
     public void testCreateNewOrder() {
         // Given
         User user = new User("John","Smith");
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         Cart cart = new Cart(user);
         Order order = new Order(cart, OrderStatus.CREATED);
         // When
@@ -45,14 +45,14 @@ public class OrderTestSuite {
         assertThat(savedOrder.getCart()).isNotNull();
 
         orderRepository.deleteById(id);
-        userRepository.deleteAll();
+        userRepository.deleteById(savedUser.getId());
     }
 
     @Test
     public void testRetrieveAllOrders() {
         // Given
         User user = new User("John","Smith");
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         Cart cart1 = new Cart(user);
         Cart cart2 = new Cart(user);
         Cart cart3 = new Cart(user);
@@ -70,14 +70,14 @@ public class OrderTestSuite {
         orderRepository.deleteById(order1.getId());
         orderRepository.deleteById(order2.getId());
         orderRepository.deleteById(order3.getId());
-        userRepository.deleteAll();
+        userRepository.deleteById(savedUser.getId());
     }
 
     @Test
     public void testRetrieveOneOrder() {
         // Given
         User user = new User("John","Smith");
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         Cart cart = new Cart(user);
         Order order = new Order(cart, OrderStatus.CREATED);
         Order savedOrder = orderRepository.save(order);
@@ -90,14 +90,14 @@ public class OrderTestSuite {
         assertThat(orderDb.getId()).isGreaterThan(0);
 
         orderRepository.deleteById(orderDb.getId());
-        userRepository.deleteAll();
+        userRepository.deleteById(savedUser.getId());
     }
 
     @Test
     public void testUpdateOrder() {
         // Given
         User user = new User("John","Smith");
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         Cart cart = new Cart(user);
         Order order = new Order(cart, OrderStatus.CREATED);
         Order savedOrder = orderRepository.save(order);
@@ -112,14 +112,14 @@ public class OrderTestSuite {
         assertEquals(OrderStatus.SENT,orderDb.getStatus());
 
         orderRepository.deleteById(orderDb.getId());
-        userRepository.deleteAll();
+        userRepository.deleteById(savedUser.getId());
     }
 
     @Test
     public void testDeleteOrder_cartShouldBeDeleted() {
         // Given
         User user = new User("John","Smith");
-        userRepository.save(user);
+        User savedUser = userRepository.save(user);
         Cart cart = new Cart(user);
         Order order = new Order(cart, OrderStatus.CREATED);
         Order savedOrder = orderRepository.save(order);
@@ -127,12 +127,12 @@ public class OrderTestSuite {
         long cartId = cart.getId();
         // When
         orderRepository.deleteById(orderId);
+        userRepository.deleteById(savedUser.getId());
         // Then
         boolean orderExists = orderRepository.existsById(orderId);
         boolean cartExists = cartRepository.existsById(cartId);
         assertThat(orderExists).isEqualTo(false);
         assertThat(cartExists).isEqualTo(false);
-        userRepository.deleteAll();
     }
 
     @Test(expected = OrderNotFoundException.class)

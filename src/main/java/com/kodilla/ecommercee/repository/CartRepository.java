@@ -10,10 +10,10 @@ import java.util.List;
 @Repository
 @Transactional
 public interface CartRepository extends CrudRepository<Cart,Long> {
-
     @Override
     List<Cart> findAll();
 
-
     int findAllByProducts(List<Product> productList);
+
+    List<Cart> findAllByUser_Id(Long id);
 }
