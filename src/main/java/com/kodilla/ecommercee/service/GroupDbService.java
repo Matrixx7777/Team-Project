@@ -1,6 +1,6 @@
 package com.kodilla.ecommercee.service;
 
-import com.kodilla.ecommercee.exception.GroupNotFoundException;
+import com.kodilla.ecommercee.exceptions.GroupNotFoundException;
 import com.kodilla.ecommercee.repository.GroupRepository;
 import com.kodilla.ecommercee.domain.Group;
 import lombok.RequiredArgsConstructor;

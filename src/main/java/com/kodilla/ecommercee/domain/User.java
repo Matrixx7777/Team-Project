@@ -2,9 +2,9 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +20,11 @@ public class User {
     private Long id;
 
 
+    @Setter
     @Column(name = "name")
     private String firstName;
 
+    @Setter
     @Column(name = "surname")
     private String lastName;
 
@@ -40,7 +42,9 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setLastName(String lastName) {
+    public User(Long id, String firstName, String lastName) {
+        this.id = id;
+        this.firstName = firstName;
         this.lastName = lastName;
     }
 }
