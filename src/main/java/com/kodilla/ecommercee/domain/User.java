@@ -16,7 +16,6 @@ public class User {
 
     @Id
     @GeneratedValue
-    @NotNull
     @Column(name = "ID", unique = true)
     private Long id;
 
@@ -33,6 +32,7 @@ public class User {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
+    @Column(name = "carts")
     private List<Cart> carts = new ArrayList<>();
 
     public User(String firstName, String lastName) {

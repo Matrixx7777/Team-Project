@@ -22,8 +22,6 @@ public class CartTestSuite {
     @Autowired
     private CartRepository cartRepository;
     @Autowired
-    private ProductRepository productRepository;
-    @Autowired
     private UserRepository userRepository;
 
     @Test
@@ -34,30 +32,23 @@ public class CartTestSuite {
         Cart cart = new Cart(user);
 
         //When
-        Product saveProduct = productRepository.save(product);
         userRepository.save(user);
         Cart saveCart = cartRepository.save(cart);
-
         cart.getProducts().add(product);
-
-        long productId = saveProduct.getId();
         long cartId = saveCart.getId();
 
         //Then
         assertThat(cartId).isGreaterThan(0);
-        assertThat(saveCart.getProducts()).isNotNull();
-        assertThat(saveCart.getUser()).isNotNull();
+        assertThat(cartId).isNotNull();
 
         //Delete
-        productRepository.deleteById(productId);
         cartRepository.deleteById(cartId);
     }
 
     @Test
     public void testUpdateCart() {
         // Given
-        Group cars = new Group("Cars");
-        Product product = new Product(1L,"Ferrari", "400km/h", 1320000, cars);
+        Product product = new Product(1L,"Ferrari", "400km/h", 1320000, new Group("Cars"));
         User user = new User("Ghost","Rider");
         Cart cart = new Cart(user);
 
@@ -121,18 +112,15 @@ public class CartTestSuite {
         // When
         userRepository.save(user);
         cartRepository.save(cart);
-        long userId = user.getId();
-        long cartId = cart.getId() - 1;
 
-        Optional<Cart> cartIn = cartRepository.findById(cartId);
+        Optional<Cart> cartIn = cartRepository.findById(cart.getId());
 
         // Then
         assertThat(cartIn).isNotNull();
         assertThat(cart.getId()).isGreaterThan(0);
-        assertEquals(cartId,1);
 
         //Delete
-        userRepository.deleteById(userId);
+        cartRepository.deleteById(cart.getId());
     }
 
     @Test

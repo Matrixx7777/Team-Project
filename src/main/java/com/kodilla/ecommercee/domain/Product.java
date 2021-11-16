@@ -2,7 +2,7 @@ package com.kodilla.ecommercee.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -24,7 +24,6 @@ public class Product {
     public Product() {    }
 
     public Product(Long id, String name, String description, double price, Group group) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
@@ -57,14 +56,17 @@ public class Product {
         return price;
     }
 
-    @NotNull
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name = "GROUP_ID")
     public Group getGroup() {
         return group;
     }
 
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "products")
+    @ManyToMany(
+            cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH},
+            mappedBy = "products",
+            fetch = FetchType.EAGER)
     public List<Cart> getCarts() {
         return carts;
     }
