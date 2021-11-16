@@ -135,6 +135,6 @@ public class OrderTestSuite {
         // Given
         long fakeId = 1;
         // When Then
-        orderRepository.findById(fakeId).orElseThrow(() -> new OrderNotFoundException("Could not find order with given id"));
+        orderRepository.findById(fakeId).orElseThrow(OrderNotFoundException::new);
     }
 }

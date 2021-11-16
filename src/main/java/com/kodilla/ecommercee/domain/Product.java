@@ -1,7 +1,8 @@
 package com.kodilla.ecommercee.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.hibernate.engine.internal.Cascade;
+
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -22,7 +23,7 @@ public class Product {
 
     public Product() {    }
 
-    public Product(String name, String description, double price, Group group) {
+    public Product(Long id, String name, String description, double price, Group group) {
         this.name = name;
         this.description = description;
         this.price = price;

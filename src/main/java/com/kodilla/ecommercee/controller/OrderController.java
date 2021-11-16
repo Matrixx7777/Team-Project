@@ -1,37 +1,50 @@
 package com.kodilla.ecommercee.controller;
 
+import com.kodilla.ecommercee.domain.Order;
 import com.kodilla.ecommercee.dto.OrderDto;
+import com.kodilla.ecommercee.exceptions.CartNotFoundException;
+import com.kodilla.ecommercee.mapper.OrderMapper;
+import com.kodilla.ecommercee.service.OrderDbService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("v1/order")
+@RequestMapping("v1/orders")
+@RequiredArgsConstructor
 public class OrderController {
 
-    @GetMapping(value = "getOrders")
+    private final OrderDbService orderDbService;
+    private final OrderMapper orderMapper;
+
+    @GetMapping
     public List<OrderDto> getOrders() {
-        return new ArrayList<>();
+        List<Order> orders = orderDbService.getOrders();
+        return orderMapper.mapToOrderDtoList(orders);
     }
 
-    @GetMapping(value = "getOrder")
-    public void getOrder (@RequestParam int orderId) {
-        //return new OrderDto(1L, 1, "new status");
+    @GetMapping("/{id}")
+    public OrderDto getOrder (@PathVariable("id") long orderId) {
+        Order order = orderDbService.getOrder(orderId);
+        return orderMapper.mapToOrderDto(order);
     }
 
-    @PostMapping(value = "createOrder")
-    public OrderDto createOrder(@RequestBody OrderDto orderDto) {
-        return orderDto;
+    @PostMapping
+    public OrderDto createOrder(@RequestBody OrderDto orderDto) throws CartNotFoundException {
+        Order order = orderMapper.mapToOrder(orderDto);
+        Order savedOrder = orderDbService.saveOrder(order);
+        return orderMapper.mapToOrderDto(savedOrder);
     }
 
-    @PutMapping(value = "updateOrder")
+    @PutMapping
     public OrderDto updateOrder(@RequestBody OrderDto orderDto) {
-        return orderDto;
+        Order updatedOrder = orderDbService.updateOrder(orderDto.getId(),orderDto.getOrderStatus());
+        return orderMapper.mapToOrderDto(updatedOrder);
     }
 
-    @DeleteMapping(value = "deleteOrder")
-    public void deleteOrder(@RequestParam int orderId) {
-        //do nothing
+    @DeleteMapping("/{id}")
+    public void deleteOrder(@PathVariable("id") long orderId) {
+        orderDbService.deleteOrder(orderId);
     }
 }

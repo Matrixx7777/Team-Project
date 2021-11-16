@@ -39,7 +39,7 @@ public class ProductEntityTestSuite {
     public void testAddProduct() {
         //Given
         Group group = new Group("Test group");
-        Product product = new Product("Test product","Test product desc", 24.99,group);
+        Product product = new Product(1L,"Test product","Test product desc", 24.99,group);
         //When
         productRepository.save(product);
         //Then
@@ -60,7 +60,7 @@ public class ProductEntityTestSuite {
 
         //Given
         Group group = new Group("Test group");
-        Product product = new Product("Test product","Test product desc", 24.99, group);
+        Product product = new Product(1L,"Test product","Test product desc", 24.99, group);
         User user = new User("Jan","Nowak");
         Cart cart = new Cart(user);
         productRepository.save(product);
@@ -99,7 +99,7 @@ public class ProductEntityTestSuite {
     public void testDeleteProduct() {
         //Given
         Group group = new Group("Test group");
-        Product product = new Product("Test product","Test product desc", 24.99, group);
+        Product product = new Product(1L,"Test product","Test product desc", 24.99, group);
         User user = new User("Jan","Nowak");
         Cart cart = new Cart(user);
         product.getCarts().add(cart);
@@ -132,13 +132,15 @@ public class ProductEntityTestSuite {
 
         //Cleanup
         groupRepository.deleteAll();
+        userRepository.deleteAll();
+        cartRepository.deleteAll();
     }
 
     @Test
     public void updateProduct() {
         //Given
         Group group = new Group("Test group");
-        Product product = new Product("Test product","Test product desc", 24.99, group);
+        Product product = new Product(1L,"Test product","Test product desc", 24.99, group);
         productRepository.save(product);
         //Then
         Product savedProduct = productRepository.findAll().get(0);

@@ -39,4 +39,8 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 }
