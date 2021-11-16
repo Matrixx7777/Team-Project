@@ -45,6 +45,7 @@ public class OrderTestSuite {
         assertThat(savedOrder.getCart()).isNotNull();
 
         orderRepository.deleteById(id);
+        userRepository.deleteAll();
     }
 
     @Test
@@ -69,6 +70,7 @@ public class OrderTestSuite {
         orderRepository.deleteById(order1.getId());
         orderRepository.deleteById(order2.getId());
         orderRepository.deleteById(order3.getId());
+        userRepository.deleteAll();
     }
 
     @Test
@@ -88,6 +90,7 @@ public class OrderTestSuite {
         assertThat(orderDb.getId()).isGreaterThan(0);
 
         orderRepository.deleteById(orderDb.getId());
+        userRepository.deleteAll();
     }
 
     @Test
@@ -109,6 +112,7 @@ public class OrderTestSuite {
         assertEquals(OrderStatus.SENT,orderDb.getStatus());
 
         orderRepository.deleteById(orderDb.getId());
+        userRepository.deleteAll();
     }
 
     @Test
@@ -128,6 +132,7 @@ public class OrderTestSuite {
         boolean cartExists = cartRepository.existsById(cartId);
         assertThat(orderExists).isEqualTo(false);
         assertThat(cartExists).isEqualTo(false);
+        userRepository.deleteAll();
     }
 
     @Test(expected = OrderNotFoundException.class)

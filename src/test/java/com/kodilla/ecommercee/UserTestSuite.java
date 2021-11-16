@@ -63,11 +63,11 @@ public class UserTestSuite {
         } catch (Exception e) {
             //do nothing
         }
+
     }
 
     @Test
     public void testRetrieveUsers() {
-
         // Given
         User user1 = new User( "Ambroży", "Kleks");
         User user2 = new User( "Jan", "Kowalski");
@@ -78,7 +78,6 @@ public class UserTestSuite {
 
         // When
         List<User> retrivedUsers = userRepository.findAll();
-
         // Then
         assertEquals(3, retrivedUsers.size());
 
@@ -110,6 +109,7 @@ public class UserTestSuite {
         } catch (Exception e) {
             //do nothing
         }
+
     }
 
     @Test

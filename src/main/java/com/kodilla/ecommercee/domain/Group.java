@@ -23,8 +23,11 @@ public class Group {
     @Column(name = "NAME")
     private String name;
 
-    @OneToMany(targetEntity = Product.class, mappedBy = "group",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(targetEntity = Product.class,
+            mappedBy = "group",cascade = {CascadeType.PERSIST,CascadeType.REFRESH, CascadeType.MERGE},
+            fetch = FetchType.EAGER)
     private List<Product> productList;
+
 
     public Group(String name) { this.name = name; this.productList = new ArrayList(); }
 }
