@@ -26,7 +26,6 @@ public class UserTestSuite {
 
     @Test
     public void testCreateUser() {
-
         // Given
         User user = new User("Ambroży", "Kleks");
 
@@ -46,17 +45,16 @@ public class UserTestSuite {
 
     @Test
     public void testRetrieveUser() {
-
         // Given
         User user = new User("Ambroży", "Kleks");
         User savedUser = userRepository.save(user);
         long userId = savedUser.getId();
 
         // When
-        User retrivedUser = userRepository.findById(userId).get();
+        User retrievedUser = userRepository.findById(userId).get();
 
         // Then
-        assertThat(retrivedUser.getId()).isGreaterThan(0);
+        assertThat(retrievedUser.getId()).isGreaterThan(0);
 
         try {
             userRepository.deleteById(savedUser.getId());
@@ -72,14 +70,14 @@ public class UserTestSuite {
         User user1 = new User( "Ambroży", "Kleks");
         User user2 = new User( "Jan", "Kowalski");
         User user3 = new User( "Krzysztof", "Nowak");
-        userRepository.save(user1).getId();
-        userRepository.save(user2).getId();
+        userRepository.save(user1);
+        userRepository.save(user2);
         userRepository.save(user3);
 
         // When
-        List<User> retrivedUsers = userRepository.findAll();
+        List<User> retrievedUsers = userRepository.findAll();
         // Then
-        assertEquals(3, retrivedUsers.size());
+        assertEquals(3, retrievedUsers.size());
 
         try {
             userRepository.deleteById(user1.getId());
@@ -92,17 +90,17 @@ public class UserTestSuite {
 
     @Test
     public void testUpdateUser() {
-
         // Given
         User user = new User( "Ambroży", "Kleks");
         User savedUser = userRepository.save(user);
 
         // When
-        savedUser.setLastName("Kowalski");
-        User retrivedUser = userRepository.save(savedUser);
+        String userLastName = user.getLastName();
+        savedUser.setLastName(userLastName);
+        User retrievedUser = userRepository.save(savedUser);
 
         // Then
-        assertEquals("Kowalski", retrivedUser.getLastName());
+        assertEquals("Kleks", retrievedUser.getLastName());
 
         try {
             userRepository.deleteById(savedUser.getId());
@@ -114,7 +112,6 @@ public class UserTestSuite {
 
     @Test
     public void testDeleteUserShouldBeDeleted() {
-
         // Given
         User user = new User( "Ambroży", "Kleks");
         User savedUser = userRepository.save(user);
@@ -131,8 +128,6 @@ public class UserTestSuite {
 
         // Then
         assertThat(cartRepository.existsById(cartId)).isEqualTo(false);
-
     }
-
 }
 
